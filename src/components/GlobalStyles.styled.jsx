@@ -5,6 +5,7 @@ import '@fontsource/roboto/700.css';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { modernNormalizeCss } from 'emotion-modern-normalize';
+import { Link } from 'react-router-dom';
 
 export const GlobalStyles = css`
   ${modernNormalizeCss}
@@ -128,5 +129,17 @@ export const MainTitle = styled.h1`
 
   @media screen and (min-width: 768px) {
     font-size: 20px;
+  }
+`;
+
+export const GoBackLink = styled(Link)`
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  text-decoration: none;
+  color: var(--color-text-light);
+  :hover,
+  :focus {
+    color: var(--color-accent);
   }
 `;

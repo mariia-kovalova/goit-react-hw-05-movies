@@ -1,12 +1,21 @@
 import { useEffect, useState } from 'react';
-import { Outlet, useParams } from 'react-router-dom';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
 import { getFilmById } from 'api/movies-service';
 import { Movie } from 'components/Movie';
-import { Container, LightSection, Main } from 'components/GlobalStyles.styled';
 import { Loader } from 'components/Loader';
 import { Error } from 'components/Error';
+import { BsArrowLeftCircle } from 'react-icons/bs';
+import { IconContext } from 'react-icons';
+import {
+  Container,
+  DarkSection,
+  GoBackLink,
+  LightSection,
+  Main,
+} from 'components/GlobalStyles.styled';
 
 export const MovieDetails = () => {
+  const location = useLocation();
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -31,13 +40,23 @@ export const MovieDetails = () => {
 
   return (
     <Main>
-      <Container>
-        <LightSection>
+      <DarkSection>
+        <Container>
+          <GoBackLink to={location.state.from}>
+            <IconContext.Provider value={{ size: '1.4em' }}>
+              <BsArrowLeftCircle />
+            </IconContext.Provider>
+            <span>Go back</span>
+          </GoBackLink>
+        </Container>
+      </DarkSection>
+      <LightSection>
+        <Container>
           {!isLoading && !error && movie && <Movie movie={movie} />}
           {isLoading && <Loader open={isLoading} />}
           {error && <Error>Sorry, something went wrong...</Error>}
-        </LightSection>
-      </Container>
+        </Container>
+      </LightSection>
       <Outlet />
     </Main>
   );

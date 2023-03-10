@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
 import {
   converTittle,
   getFullYear,
@@ -10,12 +11,13 @@ import { CardLink, Poster, Text, Title } from './MovieItem.styled';
 export const MovieItem = ({
   movie: { id, poster_path, title, release_date, genre_ids },
 }) => {
+  const location = useLocation();
   const year = getFullYear(release_date);
   const genresList = getGenresListById(genre_ids);
   const convertedTitle = converTittle(title);
   const src = getSrc(poster_path);
   return (
-    <CardLink to={`/movies/${id}`}>
+    <CardLink to={`/movies/${id}`} state={{ from: location }}>
       <Poster src={src} alt={title} loading="lazy" />
       <Title>{convertedTitle}</Title>
       <Text>
