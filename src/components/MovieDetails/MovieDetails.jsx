@@ -15,6 +15,7 @@ import {
   Table,
   Wrap,
   MoreInfoLink,
+  List,
 } from './MovieDetails.styled';
 
 export const MovieDetails = ({ movie }) => {
@@ -75,7 +76,7 @@ export const MovieDetails = ({ movie }) => {
         )}
         <div>
           <p>Additional information</p>
-          <ul>
+          <List>
             <li>
               <MoreInfoLink
                 to={`/movies/${movieId}/cast`}
@@ -92,7 +93,7 @@ export const MovieDetails = ({ movie }) => {
                 Reviews
               </MoreInfoLink>
             </li>
-          </ul>
+          </List>
         </div>
       </FilmInfo>
     </Wrap>

@@ -146,6 +146,12 @@ export const AboutDescription = styled.p`
   }
 `;
 
+export const List = styled.ul`
+  padding-top: 10px;
+  display: flex;
+  gap: 20px;
+`;
+
 export const MoreInfoLink = styled(Link)`
   color: var(--color-card__text);
 `;
