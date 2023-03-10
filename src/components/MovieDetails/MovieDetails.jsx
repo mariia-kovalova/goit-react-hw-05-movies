@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { fixedNumber, getGenresListFromArr, getSrc } from 'utils/infoConverter';
 import {
   About,
@@ -19,6 +19,7 @@ import {
 
 export const MovieDetails = ({ movie }) => {
   const { movieId } = useParams();
+  const location = useLocation();
   const {
     poster_path,
     title,
@@ -76,10 +77,18 @@ export const MovieDetails = ({ movie }) => {
           <p>Additional information</p>
           <ul>
             <li>
-              <MoreInfoLink to={`/movies/${movieId}/cast`}>Cast</MoreInfoLink>
+              <MoreInfoLink
+                to={`/movies/${movieId}/cast`}
+                state={location.state}
+              >
+                Cast
+              </MoreInfoLink>
             </li>
             <li>
-              <MoreInfoLink to={`/movies/${movieId}/reviews`}>
+              <MoreInfoLink
+                to={`/movies/${movieId}/reviews`}
+                state={location.state}
+              >
                 Reviews
               </MoreInfoLink>
             </li>
