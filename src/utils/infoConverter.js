@@ -7,6 +7,13 @@ export const getSrc = poster_path => {
   return `${BASE_SRC}${poster_path}`;
 };
 
+export const getCastSrc = poster_path => {
+  const BASE_SRC = 'https://image.tmdb.org/t/p/w200';
+  const FALLBACK_SRC = 'https://ik.imagekit.io/blsadqwgu/no-person-200x300.png';
+  if (!poster_path) return FALLBACK_SRC;
+  return `${BASE_SRC}${poster_path}`;
+};
+
 export const converTittle = title => {
   if (title.length <= 34) return title;
   const start = title.slice(0, 14);
@@ -35,5 +42,5 @@ export const getGenresListById = genre_ids => {
   return `${genresArr.slice(0, 2).join(', ')}, Other`;
 };
 
-export const getRaiting = vote_average =>
+export const fixedNumber = vote_average =>
   !vote_average ? '0.0' : vote_average.toFixed(1);

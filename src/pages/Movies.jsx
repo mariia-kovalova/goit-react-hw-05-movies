@@ -11,7 +11,8 @@ import { MuiPagination } from 'components/MuiPagination';
 import { SearchForm } from 'components/SearchForm/SearchForm';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { getFilmsByKeyword } from 'utils/movies-service';
+import { getFilmsByKeyword } from 'api/movies-service';
+import { Error } from 'components/Error';
 
 export const Movies = () => {
   let [searchParams] = useSearchParams();
@@ -23,6 +24,7 @@ export const Movies = () => {
   const paginationData = usePagination(totalPages);
 
   useEffect(() => {
+    setError(null);
     const query = searchParams.get('query') || '';
     if (query === '') return;
 
@@ -58,19 +60,22 @@ export const Movies = () => {
       </DarkSection>
       <LightSection>
         <Container>
-          {movies.length > 0 && <MoviesList movies={movies} />}
+          {movies.length > 0 && !isLoading && !error && (
+            <MoviesList movies={movies} />
+          )}
+          {movies.length === 0 && !isLoading && !error && (
+            <Error>Sorry, there is no such films. Please, try again.</Error>
+          )}
           {isLoading && <Loader open={isLoading} />}
-          {error && <div>Error</div>}
-        </Container>
-        {totalPages >= 1 && (
-          <Container>
+          {error && <Error>Sorry, something went wrong...</Error>}
+          {!isLoading && !error && totalPages > 1 && (
             <MuiPagination
               count={totalPages}
               page={page}
               onChange={handleChange}
             />
-          </Container>
-        )}
+          )}
+        </Container>
       </LightSection>
     </Main>
   );

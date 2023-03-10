@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Loader } from 'components/Loader';
 import { MoviesList } from 'components/MoviesList';
-import { getTrendingFilms } from 'utils/movies-service';
+import { getTrendingFilms } from 'api/movies-service';
+import usePagination from '@mui/material/usePagination/usePagination';
+import { MuiPagination } from 'components/MuiPagination';
 import {
   Container,
   DarkSection,
@@ -9,8 +11,7 @@ import {
   Main,
   MainTitle,
 } from 'components/GlobalStyles.styled';
-import usePagination from '@mui/material/usePagination/usePagination';
-import { MuiPagination } from 'components/MuiPagination';
+import { Error } from 'components/Error';
 
 export const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -23,6 +24,7 @@ export const Home = () => {
   useEffect(() => {
     const getFilms = async () => {
       try {
+        setError(null);
         setIsLoading(true);
         const { results, total_pages } = await getTrendingFilms(page);
         setMovies(results);
@@ -51,19 +53,19 @@ export const Home = () => {
       </DarkSection>
       <LightSection>
         <Container>
-          {movies.length > 0 && <MoviesList movies={movies} />}
+          {movies.length > 0 && !isLoading && !error && (
+            <MoviesList movies={movies} />
+          )}
           {isLoading && <Loader open={isLoading} />}
-          {error && <div>Error</div>}
-        </Container>
-        {totalPages >= 1 && (
-          <Container>
+          {error && <Error>Sorry, something went wrong...</Error>}
+          {!isLoading && !error && totalPages > 1 && (
             <MuiPagination
               count={totalPages}
               page={page}
               onChange={handleChange}
             />
-          </Container>
-        )}
+          )}
+        </Container>
       </LightSection>
     </Main>
   );

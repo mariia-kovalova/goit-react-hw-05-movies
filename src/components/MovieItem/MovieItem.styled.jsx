@@ -4,24 +4,11 @@ import { Link } from 'react-router-dom';
 export const CardLink = styled(Link)`
   display: flex;
   flex-direction: column;
-  width: 280px;
-
   overflow: hidden;
   cursor: pointer;
-
-  @media screen and (min-width: 768px) {
-    flex-basis: calc((100% - 32px) / 2);
-    width: 336px;
-  }
-
-  @media screen and (min-width: 1280px) {
-    flex-basis: calc((100% - 32px) / 3);
-    width: 394px;
-  }
 `;
 
 export const Poster = styled.img`
-  width: 100%;
   height: 398px;
   margin-bottom: 10px;
   border-radius: 5px;
@@ -44,11 +31,9 @@ export const Poster = styled.img`
 
 export const Title = styled.h2`
   font-family: var(--font-primary);
-
   font-size: 12px;
   line-height: 1.33;
   text-transform: uppercase;
-
   color: var(--color-text-dark);
   transition: transform 300ms ease-in-out, color 300ms ease-in-out;
 
@@ -65,10 +50,8 @@ export const Title = styled.h2`
 
 export const Text = styled.p`
   font-family: var(--font-primary);
-
   font-size: 12px;
   line-height: 1.33;
-
   color: var(--color-card__text);
   transition: transform 300ms ease-in-out, color 300ms ease-in-out;
 

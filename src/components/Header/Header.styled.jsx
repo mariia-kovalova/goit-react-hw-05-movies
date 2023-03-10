@@ -9,7 +9,6 @@ export const HeaderStyled = styled.header`
 export const Wrap = styled.div`
   display: flex;
   align-items: center;
-  width: 100%;
   column-gap: 15px;
 
   @media screen and (min-width: 768px) {

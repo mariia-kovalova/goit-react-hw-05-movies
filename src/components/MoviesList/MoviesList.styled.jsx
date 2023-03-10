@@ -14,3 +14,15 @@ export const List = styled.ul`
     column-gap: 16px;
   }
 `;
+
+export const Item = styled.li`
+  width: 100%;
+
+  @media screen and (min-width: 768px) {
+    flex-basis: calc((100% - 32px) / 2);
+  }
+
+  @media screen and (min-width: 1280px) {
+    flex-basis: calc((100% - 32px) / 3);
+  }
+`;
