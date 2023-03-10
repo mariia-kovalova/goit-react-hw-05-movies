@@ -22,5 +22,5 @@ export const Item = styled.li`
 `;
 
 export const Wrap = styled.div`
-  min-height: 600px;
+  min-height: 400px;
 `;

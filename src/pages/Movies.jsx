@@ -16,7 +16,7 @@ import { Error } from 'components/Error';
 
 export const Movies = () => {
   let [searchParams] = useSearchParams();
-  const [movies, setMovies] = useState([]);
+  const [movies, setMovies] = useState(null);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -60,10 +60,10 @@ export const Movies = () => {
       </DarkSection>
       <LightSection>
         <Container>
-          {movies.length > 0 && !isLoading && !error && (
+          {movies && movies.length > 0 && !isLoading && !error && (
             <MoviesList movies={movies} />
           )}
-          {movies.length === 0 && !isLoading && !error && (
+          {movies && movies.length === 0 && !isLoading && !error && (
             <Error>Sorry, there is no such films. Please, try again.</Error>
           )}
           {isLoading && <Loader open={isLoading} />}

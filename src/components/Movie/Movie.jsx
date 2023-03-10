@@ -18,6 +18,7 @@ import {
 } from './Movie.styled';
 
 export const Movie = ({ movie }) => {
+  console.log(movie);
   const { movieId } = useParams();
   const {
     poster_path,
@@ -58,16 +59,20 @@ export const Movie = ({ movie }) => {
               <InfoLabel>Original Title</InfoLabel>
               <InfoValue>{original_title}</InfoValue>
             </tr>
-            <tr>
-              <InfoLabel>Genre</InfoLabel>
-              <InfoValue>{genresNames}</InfoValue>
-            </tr>
+            {genres.length > 0 && (
+              <tr>
+                <InfoLabel>Genre</InfoLabel>
+                <InfoValue>{genresNames}</InfoValue>
+              </tr>
+            )}
           </tbody>
         </Table>
-        <About>
-          <AboutTitle>OVERVIEW </AboutTitle>
-          <AboutDescription>{overview}</AboutDescription>
-        </About>
+        {overview && (
+          <About>
+            <AboutTitle>OVERVIEW </AboutTitle>
+            <AboutDescription>{overview}</AboutDescription>
+          </About>
+        )}
         <div>
           <p>Additional information</p>
           <ul>

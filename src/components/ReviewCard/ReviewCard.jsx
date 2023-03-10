@@ -4,8 +4,12 @@ import { Text, Wrap } from './ReviewCard.styled';
 export const ReviewCard = ({ item: { author, content } }) => {
   return (
     <Wrap>
-      <Text>Author: {author}</Text>
-      <Text>Review: {content}</Text>
+      <Text>
+        <b>Author:</b> {author}
+      </Text>
+      <Text>
+        <b>Review:</b> {content}
+      </Text>
     </Wrap>
   );
 };

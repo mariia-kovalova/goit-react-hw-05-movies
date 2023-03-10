@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 import { List, Title, Wrap, Item } from './Cast.styled';
 
 export const Cast = () => {
-  const [cast, setCast] = useState([]);
+  const [cast, setCast] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const { movieId } = useParams();
@@ -36,7 +36,7 @@ export const Cast = () => {
       <LightSection>
         <Wrap>
           <Title>Movie cast: </Title>
-          {!isLoading && !error && cast.length > 0 && (
+          {!isLoading && !error && cast && cast.length > 0 && (
             <List>
               {cast.map(item => (
                 <Item key={item.id}>
@@ -44,6 +44,9 @@ export const Cast = () => {
                 </Item>
               ))}
             </List>
+          )}
+          {!isLoading && !error && cast && cast.length === 0 && (
+            <Error>There is no information about cast.</Error>
           )}
           {isLoading && <Loader open={isLoading} />}
           {error && <Error>Sorry, something went wrong...</Error>}
