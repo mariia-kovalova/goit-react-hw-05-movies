@@ -1,20 +1,21 @@
-import { useEffect, useState } from 'react';
-import { Loader } from 'components/Loader';
-import { MoviesList } from 'components/MoviesList';
-import { getTrendingFilms } from 'api/movies-service';
 import usePagination from '@mui/material/usePagination/usePagination';
-import { MuiPagination } from 'components/MuiPagination';
 import {
   Container,
   DarkSection,
   LightSection,
-  Main,
-  MainTitle,
 } from 'components/GlobalStyles.styled';
+import { Loader } from 'components/Loader';
+import { MoviesList } from 'components/MoviesList';
+import { MuiPagination } from 'components/MuiPagination';
+import { SearchForm } from 'components/SearchForm';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { getFilmsByKeyword } from 'api/movies-service';
 import { Error } from 'components/Error';
 
-export const Home = () => {
-  const [movies, setMovies] = useState([]);
+const MoviesPage = () => {
+  let [searchParams] = useSearchParams();
+  const [movies, setMovies] = useState(null);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -22,11 +23,17 @@ export const Home = () => {
   const paginationData = usePagination(totalPages);
 
   useEffect(() => {
-    const getFilms = async page => {
+    setError(null);
+    const query = searchParams.get('query') || '';
+    if (query === '') return;
+
+    const getFilms = async ({ query, page }) => {
       try {
-        setError(null);
         setIsLoading(true);
-        const { results, total_pages } = await getTrendingFilms(page);
+        const { results, total_pages } = await getFilmsByKeyword({
+          query,
+          page,
+        });
         setMovies(results);
         setTotalPages(total_pages);
       } catch (error) {
@@ -36,25 +43,27 @@ export const Home = () => {
       }
     };
 
-    getFilms(page);
-  }, [page]);
+    getFilms({ query, page });
+  }, [page, searchParams]);
 
   const handleChange = (_, nextPage) => {
     setPage(nextPage);
     paginationData.jump(nextPage);
   };
-
   return (
-    <Main>
+    <>
       <DarkSection>
         <Container>
-          <MainTitle>Trending now</MainTitle>
+          <SearchForm />
         </Container>
       </DarkSection>
       <LightSection>
         <Container>
-          {movies.length > 0 && !isLoading && !error && (
+          {movies && movies.length > 0 && !isLoading && !error && (
             <MoviesList movies={movies} />
+          )}
+          {movies && movies.length === 0 && !isLoading && !error && (
+            <Error>Sorry, there is no such films. Please, try again.</Error>
           )}
           {isLoading && <Loader open={isLoading} />}
           {error && <Error>Sorry, something went wrong...</Error>}
@@ -67,6 +76,8 @@ export const Home = () => {
           )}
         </Container>
       </LightSection>
-    </Main>
+    </>
   );
 };
+
+export default MoviesPage;

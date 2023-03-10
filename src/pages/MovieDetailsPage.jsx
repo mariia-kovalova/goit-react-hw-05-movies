@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { Outlet, useLocation, useParams } from 'react-router-dom';
 import { getFilmById } from 'api/movies-service';
-import { Movie } from 'components/Movie';
 import { Loader } from 'components/Loader';
 import { Error } from 'components/Error';
+import { MovieDetails } from 'components/MovieDetails';
 import { BsArrowLeftCircle } from 'react-icons/bs';
 import { IconContext } from 'react-icons';
 import {
@@ -11,11 +11,11 @@ import {
   DarkSection,
   GoBackLink,
   LightSection,
-  Main,
 } from 'components/GlobalStyles.styled';
 
-export const MovieDetails = () => {
+const MovieDetailsPage = () => {
   const location = useLocation();
+  const path = location.state?.from ?? '/';
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -39,10 +39,10 @@ export const MovieDetails = () => {
   }, [movieId]);
 
   return (
-    <Main>
+    <>
       <DarkSection>
         <Container>
-          <GoBackLink to={location.state.from}>
+          <GoBackLink to={path}>
             <IconContext.Provider value={{ size: '1.4em' }}>
               <BsArrowLeftCircle />
             </IconContext.Provider>
@@ -52,12 +52,16 @@ export const MovieDetails = () => {
       </DarkSection>
       <LightSection>
         <Container>
-          {!isLoading && !error && movie && <Movie movie={movie} />}
+          {!isLoading && !error && movie && <MovieDetails movie={movie} />}
           {isLoading && <Loader open={isLoading} />}
           {error && <Error>Sorry, something went wrong...</Error>}
         </Container>
       </LightSection>
-      <Outlet />
-    </Main>
+      <Suspense fallback={<Error>Magic is happening, please wait!</Error>}>
+        <Outlet />
+      </Suspense>
+    </>
   );
 };
+
+export default MovieDetailsPage;

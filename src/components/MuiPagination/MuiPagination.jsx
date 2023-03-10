@@ -1,6 +1,6 @@
 import { Pagination } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Wrap } from './MuiPagibnation.styled';
+import { Wrap } from './MuiPagination.styled';
 
 const theme = createTheme({
   palette: {

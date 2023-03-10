@@ -7,8 +7,8 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { List, Title, Wrap } from './Reviews.styled';
 
-export const Reviews = () => {
-  const [reviews, setReviews] = useState([]);
+const Reviews = () => {
+  const [reviews, setReviews] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const { movieId } = useParams();
@@ -20,7 +20,6 @@ export const Reviews = () => {
         setIsLoading(true);
         const { results } = await getFilmReviews(movieId);
         setReviews(results);
-        console.log(results);
       } catch (error) {
         setError(error);
         console.log(error);
@@ -36,7 +35,7 @@ export const Reviews = () => {
       <LightSection>
         <Wrap>
           <Title>Reviews: </Title>
-          {!isLoading && !error && reviews.length > 0 && (
+          {!isLoading && !error && reviews && reviews.length > 0 && (
             <List>
               {reviews.map(item => (
                 <li key={item.id}>
@@ -45,7 +44,7 @@ export const Reviews = () => {
               ))}
             </List>
           )}
-          {!isLoading && !error && reviews.length === 0 && (
+          {!isLoading && !error && reviews && reviews.length === 0 && (
             <Error>There is no reviews yet.</Error>
           )}
           {isLoading && <Loader open={isLoading} />}
@@ -55,3 +54,5 @@ export const Reviews = () => {
     </Container>
   );
 };
+
+export default Reviews;

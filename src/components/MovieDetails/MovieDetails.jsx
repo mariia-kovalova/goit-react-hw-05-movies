@@ -15,10 +15,9 @@ import {
   Table,
   Wrap,
   MoreInfoLink,
-} from './Movie.styled';
+} from './MovieDetails.styled';
 
-export const Movie = ({ movie }) => {
-  console.log(movie);
+export const MovieDetails = ({ movie }) => {
   const { movieId } = useParams();
   const {
     poster_path,
@@ -91,7 +90,7 @@ export const Movie = ({ movie }) => {
   );
 };
 
-Movie.propTypes = {
+MovieDetails.propTypes = {
   movie: PropTypes.shape({
     poster_path: PropTypes.string,
     title: PropTypes.string.isRequired,
