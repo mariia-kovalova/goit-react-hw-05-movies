@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Outlet, useParams } from 'react-router-dom';
 import { getFilmById } from 'api/movies-service';
-import { Movie } from 'components/Movie/Movie';
+import { Movie } from 'components/Movie';
 import { Container, LightSection, Main } from 'components/GlobalStyles.styled';
 import { Loader } from 'components/Loader';
 import { Error } from 'components/Error';
