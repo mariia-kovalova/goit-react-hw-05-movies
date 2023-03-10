@@ -154,4 +154,7 @@ export const List = styled.ul`
 
 export const MoreInfoLink = styled(Link)`
   color: var(--color-card__text);
+  :hover {
+    color: var(--color-error);
+  }
 `;
