@@ -14,7 +14,7 @@ export const Reviews = () => {
   const { movieId } = useParams();
 
   useEffect(() => {
-    const getReviews = async () => {
+    const getReviews = async movieId => {
       try {
         setError(null);
         setIsLoading(true);
@@ -28,7 +28,7 @@ export const Reviews = () => {
         setIsLoading(false);
       }
     };
-    getReviews();
+    getReviews(movieId);
   }, [movieId]);
 
   return (

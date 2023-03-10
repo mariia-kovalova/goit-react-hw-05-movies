@@ -14,7 +14,7 @@ export const Cast = () => {
   const { movieId } = useParams();
 
   useEffect(() => {
-    const getCast = async () => {
+    const getCast = async movieId => {
       try {
         setError(null);
         setIsLoading(true);
@@ -28,7 +28,7 @@ export const Cast = () => {
         setIsLoading(false);
       }
     };
-    getCast();
+    getCast(movieId);
   }, [movieId]);
 
   return (

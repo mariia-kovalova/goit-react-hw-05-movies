@@ -22,7 +22,7 @@ export const Home = () => {
   const paginationData = usePagination(totalPages);
 
   useEffect(() => {
-    const getFilms = async () => {
+    const getFilms = async page => {
       try {
         setError(null);
         setIsLoading(true);
@@ -36,7 +36,7 @@ export const Home = () => {
       }
     };
 
-    getFilms();
+    getFilms(page);
   }, [page]);
 
   const handleChange = (_, nextPage) => {

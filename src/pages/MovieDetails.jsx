@@ -14,7 +14,7 @@ export const MovieDetails = () => {
 
   useEffect(() => {
     setError(null);
-    const getFilm = async () => {
+    const getFilm = async movieId => {
       try {
         setIsLoading(true);
         const data = await getFilmById(movieId);
@@ -26,7 +26,7 @@ export const MovieDetails = () => {
       }
     };
 
-    getFilm();
+    getFilm(movieId);
   }, [movieId]);
 
   return (

@@ -28,7 +28,7 @@ export const Movies = () => {
     const query = searchParams.get('query') || '';
     if (query === '') return;
 
-    const getFilms = async () => {
+    const getFilms = async ({ query, page }) => {
       try {
         setIsLoading(true);
         const { results, total_pages } = await getFilmsByKeyword({
@@ -44,7 +44,7 @@ export const Movies = () => {
       }
     };
 
-    getFilms();
+    getFilms({ query, page });
   }, [page, searchParams]);
 
   const handleChange = (_, nextPage) => {
