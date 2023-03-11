@@ -18,7 +18,8 @@ const HomePage = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const paginationData = usePagination(totalPages);
+
+  usePagination(totalPages);
 
   useEffect(() => {
     const getFilms = async page => {
@@ -40,7 +41,6 @@ const HomePage = () => {
 
   const handleChange = (_, nextPage) => {
     setPage(nextPage);
-    paginationData.jump(nextPage);
   };
 
   return (

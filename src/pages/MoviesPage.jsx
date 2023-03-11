@@ -20,7 +20,8 @@ const MoviesPage = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const paginationData = usePagination(totalPages);
+
+  usePagination(totalPages);
 
   useEffect(() => {
     setError(null);
@@ -46,10 +47,8 @@ const MoviesPage = () => {
     getFilms({ query, page });
   }, [page, searchParams]);
 
-  const handleChange = (_, nextPage) => {
-    setPage(nextPage);
-    paginationData.jump(nextPage);
-  };
+  const handleChange = (_, nextPage) => setPage(nextPage);
+
   return (
     <>
       <DarkSection>
